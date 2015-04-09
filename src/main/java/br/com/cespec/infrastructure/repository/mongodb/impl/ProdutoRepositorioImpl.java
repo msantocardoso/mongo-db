@@ -32,6 +32,8 @@ public class ProdutoRepositorioImpl implements ProdutoRepositorio {
 	public void remover(Produto produto) {
 		mongoTemplate.remove(produto);
 	}
+
+	@SuppressWarnings("unchecked")
 	public <T> List<Produto> buscaPorIntervaloDePrecoVarejoECapitulos(double precoInicial, double precoFinal, T... capitulos) {
 
 		Query query = new Query();
