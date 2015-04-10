@@ -1,4 +1,4 @@
-package br.com.cespec.mongo_db;
+package br.com.cespec.infrastructure.repository.mongodb;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,37 +10,32 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-import br.com.cespec.infrastructure.repository.mongodb.ProdutoRepositorio;
+import br.com.cespec.infrastructure.repository.AbstracaoTesteMongoSpringData;
 import br.com.cespec.model.Detalhes;
 import br.com.cespec.model.Preco;
 import br.com.cespec.model.Produto;
 
-public class ProdutoRepositoryTest {
 
-	ApplicationContext context;
-	MongoTemplate mongoTemplate;
+public class ProdutoRepositoryTest extends AbstracaoTesteMongoSpringData {
+
+	@Qualifier("produtoRepositorioImpl")
+	@Autowired
 	ProdutoRepositorio produtoRepositorio;
 
 	private final short TOTAL_PRODUTOS = 20;
 
 	@Before
 	public void setup() {
-		context = new GenericXmlApplicationContext("classpath*:springContext.xml");
-
-		mongoTemplate =  (MongoTemplate) context.getBean("mongoTemplate");
-		produtoRepositorio = (ProdutoRepositorio) context.getBean("produtoRepositorioImpl");
-
-		carga(mongoTemplate);
+		carga();
 	}
 
 	@After
 	public void after() {
-		if(mongoTemplate != null && mongoTemplate.collectionExists(Produto.class))
-			mongoTemplate.getCollection("produtos").drop();
+		if(this.getMongoTemplate() != null && this.getMongoTemplate().collectionExists(Produto.class))
+			this.getMongoTemplate().getCollection("produtos").drop();
 	}
 
 	@Test
@@ -109,11 +104,11 @@ public class ProdutoRepositoryTest {
 		assertEquals(11, produtos.size());
 	}
 
-	private void carga(MongoTemplate lMongoTemplate) {
+	private void carga() {
 		for(int i=1; i<=TOTAL_PRODUTOS; i++) {
 			Produto lProduto = newProduto(i);
 
-			lMongoTemplate.save(lProduto);
+			this.getMongoTemplate().save(lProduto);
 		}
 	}
 
