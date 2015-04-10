@@ -21,5 +21,5 @@
 		<constructor-arg name="databaseName" value="dbtest"/>
 	</bean>
 
-	<mongo:repositories base-package="br.com.cespec.infrastructure.persistence.mongo" />
+	<mongo:repositories base-package="br.com.cespec.infrastructure.repository.mongodb" />
 </beans>

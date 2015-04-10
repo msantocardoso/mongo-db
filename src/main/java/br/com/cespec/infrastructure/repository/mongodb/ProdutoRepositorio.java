@@ -14,6 +14,7 @@ public interface ProdutoRepositorio {
 
 	List<Produto> buscaComIntervaloDePrecoVarejo(double precoInicial, double precoFinal);
 
+	@SuppressWarnings("unchecked")
 	<T> List<Produto> buscaPorIntervaloDePrecoVarejoECapitulos(double precoInicial, double precoFinal, T... capitulos);
 
 	List<Produto> searchByProduto(Produto produto);
