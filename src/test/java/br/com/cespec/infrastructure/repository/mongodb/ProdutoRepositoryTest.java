@@ -18,11 +18,10 @@ import br.com.cespec.model.Detalhes;
 import br.com.cespec.model.Preco;
 import br.com.cespec.model.Produto;
 
-
 public class ProdutoRepositoryTest extends AbstracaoTesteMongoSpringData {
 
-	@Qualifier("produtoRepositorioImpl")
 	@Autowired
+	@Qualifier("produtoRepositorioImpl")
 	ProdutoRepositorio produtoRepositorio;
 
 	private final short TOTAL_PRODUTOS = 20;
@@ -34,8 +33,7 @@ public class ProdutoRepositoryTest extends AbstracaoTesteMongoSpringData {
 
 	@After
 	public void after() {
-		if(this.getMongoTemplate() != null && this.getMongoTemplate().collectionExists(Produto.class))
-			this.getMongoTemplate().getCollection("produtos").drop();
+		this.dropCollection("produtos", Produto.class);
 	}
 
 	@Test

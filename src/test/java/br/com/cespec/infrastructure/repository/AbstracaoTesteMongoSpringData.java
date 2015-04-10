@@ -16,4 +16,9 @@ public abstract class AbstracaoTesteMongoSpringData {
 	public MongoTemplate getMongoTemplate() {
 		return mongoTemplate;
 	}
+
+	public <T> void dropCollection(String pNome, Class<T> pClass) {
+		if(this.getMongoTemplate() != null && this.getMongoTemplate().collectionExists(pClass))
+			this.getMongoTemplate().getCollection(pNome).drop();
+	}
 }
