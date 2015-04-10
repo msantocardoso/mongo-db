@@ -12,15 +12,7 @@
 	<context:annotation-config/>
 	<context:component-scan base-package='br.com.cespec'/>
 
-	<mongo:mongo id="mongo" host='localhost' port='27017'>
-		<mongo:options
-		     connections-per-host='5'
-		     connect-timeout='30000'
-		     max-wait-time='10000'
-		     write-number='1'
-		     write-timeout='0'
-		     write-fsync='true'/>
-	</mongo:mongo>
+	<mongo:mongo id="mongo" host='localhost' port='27017' />
 
 	<mongo:db-factory dbname='dbtest' mongo-ref='mongo'/>
 
